@@ -1,4 +1,7 @@
 '''This is the GUI for the Self-Balancing Robot Settings Page.
+This code is intended to collect measurements and mass of the parts of a two-wheeled
+inverted pendulum robot. The user can select Imperial or Metric unit types, and then the
+data is collected and output to a JSON file.
 
 Amanda Voegtlin, 2019
 Portland State University'''
