@@ -25,13 +25,35 @@ class MainWindow(QMainWindow):
         # Start adding widgets to our layout!
         layout.addWidget(QRadioButton('Metric Units'))
         layout.addWidget(QRadioButton('Imperial Units'))
-        layout.addWidget(QLineEdit('Mass'))
-        layout.addWidget(QLineEdit('Axle Width'))
-        layout.addWidget(QLineEdit('Wheel Radius'))
-        layout.addWidget(QLineEdit('Height (Axle-to-top)'))
-        layout.addWidget(QLineEdit('Wheel Mass (each)'))
-        layout.addWidget(QLineEdit('Load Mass'))
-        layout.addWidget(QLineEdit('Body Mass (no load, no wheels)'))
+
+        mass = QLineEdit()
+        mass.setPlaceholderText('Mass')
+        layout.addWidget(mass)
+
+        axle = QLineEdit()
+        axle.setPlaceholderText('Axle Width')
+        layout.addWidget(axle)
+
+        wheel_rad = QLineEdit()
+        wheel_rad.setPlaceholderText('Wheel Radius')
+        layout.addWidget(wheel_rad)
+
+        height = QLineEdit()
+        height.setPlaceholderText('Height (Axle-to-top)')
+        layout.addWidget(height)
+
+        wheel_mass = QLineEdit()
+        wheel_mass.setPlaceholderText('Wheel Mass (each)')
+        layout.addWidget(wheel_mass)
+
+        load_mass = QLineEdit()
+        load_mass.setPlaceholderText('Mass of Load (only)')
+        layout.addWidget(load_mass)
+
+        body_mass = QLineEdit()
+        body_mass.setPlaceholderText('Body Mass (no load, no wheels)')
+        layout.addWidget(body_mass)
+
         layout.addWidget(QPushButton('Confirm'))
         layout.addWidget(QPushButton('Cancel'))
         layout.addWidget(QSlider())
