@@ -81,49 +81,27 @@ class MainWindow(QMainWindow):
         # Create widget, set location and size of window that appears
         self.setCentralWidget(widget)
         self.setGeometry(40, 80, 500, 380) # offset, offset, size, size
-
-    # TO DO: implement button function
-    # class CancelButton(Qbutton):
-    #
-    #     def keyPressEvent(self, e):
-    #         # when you click 'Cancel'
-    #         super(CancelButton, self).keyPressEvent(e)
-
+        
     def ConfirmButtonFunc(self):
-        print("I'm a button!")
-        print("Axle width: " + self.axle.text())
-        print("Wheel radius: " + self.wheel_rad.text())
-        print("Height: " + self.height.text())
-        print("Mass of entire robot: " + self.mass.text())
-        print("Wheel Mass (each); " + self.wheel_mass.text())
-        print("Load mass: " + self.load_mass.text())
-        print("Body mass: " + self.body_mass.text())
-
+        # print("I'm a button!")
+        # print("Axle width: " + self.axle.text())
+        # print("Wheel radius: " + self.wheel_rad.text())
+        # print("Height: " + self.height.text())
+        # print("Mass of entire robot: " + self.mass.text())
+        # print("Wheel Mass (each); " + self.wheel_mass.text())
+        # print("Load mass: " + self.load_mass.text())
+        # print("Body mass: " + self.body_mass.text())
         dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
             'height': self.height.text(), 'Robot Mass': self.mass.text(), 
             'Wheel Mass': self.wheel_mass.text(), 'Load Mass': self.load_mass.text(), 
             'Body Mass': self.body_mass.text()}
-        print dict
-        for k, v in dict.items():
-            print(k, v)
-
-        print"The body mass is " + dict['Body Mass']
-        # file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
-        # json.load(file)
+        file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
+        json.dump(dict, file)
         
 
     def CancelButtonFunc(self):
         print("You're CANCELED")
 
-    # def file_save(self):
-    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
-    #     file = open(name,'w')
-    #     text = self.textEdit.toPlainText()
-    #     file.write(text)
-    #     file.close()
-
-
-file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
 
 app = QApplication(sys.argv) #every app must have at least one instance of this
 window = MainWindow() # this is our container!
