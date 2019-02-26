@@ -59,7 +59,6 @@ class MainWindow(QMainWindow):
         height_label = QLabel('Height (Axle-to-top)')
         inside_left_vert_layout.addWidget(height_label)
 
-
         # Mass of entire robot
         self.mass = QLineEdit()
         self.mass.setPlaceholderText('Mass (entire robot, assembled)')
@@ -108,8 +107,6 @@ class MainWindow(QMainWindow):
         # layout.addWidget(QSlider())
         # Initialize all of the above as a single Widget
         widget = QWidget()
-
-
         widget.setLayout(main_vertical_layout)  # make the vertical layout the primary container
         # Create widget, set location and size of window that appears
         self.setCentralWidget(widget)
@@ -117,16 +114,7 @@ class MainWindow(QMainWindow):
 
     def ConfirmButtonFunc(self):
         print("Saved data to output.json")
-        # print("Axle width: " + self.axle.text())
-        # print("Wheel radius: " + self.wheel_rad.text())
-        # print("Height: " + self.height.text())
-        # print("Mass of entire robot: " + self.mass.text())
-        # print("Wheel Mass (each); " + self.wheel_mass.text())
-        # print("Load mass: " + self.load_mass.text())
-        # print("Body mass: " + self.body_mass.text())
-
         # DATA QUALITY CHECK CODE GOES HERE. Are all values filled in? Units? 
-        
         dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
             'height': self.height.text(), 'Robot Mass': self.mass.text(), 
             'Wheel Mass': self.wheel_mass.text(), 'Load Mass': self.load_mass.text(), 
@@ -134,11 +122,10 @@ class MainWindow(QMainWindow):
         file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
         json.dump(dict, file)
         
-
     def CancelButtonFunc(self):
+        # This should eventually do something, like discard changes or close the GUI
         print("You're CANCELED")
-
-
+# ---- Main -----
 app = QApplication(sys.argv) #every app must have at least one instance of this
 window = MainWindow() # this is our container!
 
