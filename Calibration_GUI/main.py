@@ -83,7 +83,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(40, 80, 500, 380) # offset, offset, size, size
         
     def ConfirmButtonFunc(self):
-        # print("I'm a button!")
+        print("Saved data to output.json.")
         # print("Axle width: " + self.axle.text())
         # print("Wheel radius: " + self.wheel_rad.text())
         # print("Height: " + self.height.text())
