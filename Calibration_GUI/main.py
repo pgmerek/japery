@@ -2,7 +2,6 @@
 This code is intended to collect measurements and mass of the parts of a two-wheeled
 inverted pendulum robot. The user can select Imperial or Metric unit types, and then the
 data is collected and output to a JSON file.
-
 Amanda Voegtlin, 2019
 Portland State University'''
 
@@ -10,7 +9,7 @@ from PyQt5.QtWidgets import * # QApplication, QWidget, QLineEdit, QLabel, QCheck
         # QVBoxLayout stacks widgets vertically
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
+import json
 import sys
 
 # This subclass will set our main window up
@@ -100,16 +99,31 @@ class MainWindow(QMainWindow):
         print("Load mass: " + self.load_mass.text())
         print("Body mass: " + self.body_mass.text())
 
+        dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
+            'height': self.height.text(), 'Robot Mass': self.mass.text(), 
+            'Wheel Mass': self.wheel_mass.text(), 'Load Mass': self.load_mass.text(), 
+            'Body Mass': self.body_mass.text()}
+        print dict
+        for k, v in dict.items():
+            print(k, v)
+
+        print"The body mass is " + dict['Body Mass']
+        # file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
+        # json.load(file)
+        
+
     def CancelButtonFunc(self):
         print("You're CANCELED")
 
-    def file_save(self):
-        name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
-        file = open(name,'w')
-        text = self.textEdit.toPlainText()
-        file.write(text)
-        file.close()
+    # def file_save(self):
+    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
+    #     file = open(name,'w')
+    #     text = self.textEdit.toPlainText()
+    #     file.write(text)
+    #     file.close()
 
+
+file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
 
 app = QApplication(sys.argv) #every app must have at least one instance of this
 window = MainWindow() # this is our container!
