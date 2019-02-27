@@ -91,8 +91,8 @@ class MainWindow(QMainWindow):
         inside_middle_vert_layout.addWidget(self.wheel_weight)
         wheel_weight_label = QLabel('Wheel Weight (each)')
         inside_left_vert_layout.addWidget(wheel_weight_label)
-        wheel_mass_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(wheel_mass_dropdown)
+        self.wheel_weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(self.wheel_weight_dropdown)
 
         # Load Weight
         self.load_weight = QLineEdit()
@@ -101,8 +101,8 @@ class MainWindow(QMainWindow):
         inside_middle_vert_layout.addWidget(self.load_weight)
         load_weight_label = QLabel('Weight of Load (only)')
         inside_left_vert_layout.addWidget(load_weight_label)
-        load_weight_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(load_weight_dropdown)
+        self.load_weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(self.load_weight_dropdown)
 
         # Body Weight (no load, no wheels)
         body_weight_label = QLabel('Body Weight (no load, no wheels)')
@@ -111,8 +111,8 @@ class MainWindow(QMainWindow):
         self.body_weight.setPlaceholderText('Body Weight (no load, no wheels)')
         self.body_weight.setValidator(dbl_valid)
         inside_middle_vert_layout.addWidget(self.body_weight)
-        body_weight_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(body_weight_dropdown)
+        self.body_weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(self.body_weight_dropdown)
 
         # now add those to the main layout here
         horizontal_layout.addLayout(inside_left_vert_layout) # add the left box contents
@@ -139,22 +139,23 @@ class MainWindow(QMainWindow):
 
     def ConfirmButtonFunc(self):
         print("Saved data to output.json")
-        # print("Axle width: " + self.axle.text())
-        # print("Wheel radius: " + self.wheel_rad.text())
-        # print("Height: " + self.height.text())
-        # print("Weight of entire robot: " + self.Weight.text())
-        # print("Wheel Weight (each); " + self.wheel_weight.text())
-        # print("Load Weight: " + self.load_weight.text())
-        # print("Body Weight: " + self.body_weight.text())
+        print("Axle width: " + self.axle.text() + " " + self.axle_dropdown.currentText())
+        # print(self.axle_dropdown.currentText())
+        print("Wheel radius: " + self.wheel_rad.text() + " " + self.wheel_rad_dropdown.currentText())
+        print("Height: " + self.height.text() + " " + self.height_dropdown.currentText())
+        print("Weight of entire robot: " + self.weight.text() + " " + self.weight_dropdown.currentText())
+        print("Wheel Weight (each); " + self.wheel_weight.text() + " " + self.wheel_weight_dropdown.currentText())
+        print("Load Weight: " + self.load_weight.text() + " " + self.load_weight_dropdown.currentText())
+        print("Body Weight: " + self.body_weight.text() + " " + self.body_weight_dropdown.currentText())
 
         # DATA QUALITY CHECK CODE GOES HERE. Are all values filled in? Units? 
         
-        dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
-            'height': self.height.text(), 'Robot Weight': self.weight.text(), 
-            'Wheel Weight': self.wheel_weight.text(), 'Load Weight': self.load_weight.text(), 
-            'Body Weight': self.body_weight.text()}
-        file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
-        json.dump(dict, file)
+        # dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
+        #     'height': self.height.text(), 'Robot Weight': self.weight.text(), 
+        #     'Wheel Weight': self.wheel_weight.text(), 'Load Weight': self.load_weight.text(), 
+        #     'Body Weight': self.body_weight.text()}
+        # file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
+        # json.dump(dict, file)
         
 
     def CancelButtonFunc(self):
