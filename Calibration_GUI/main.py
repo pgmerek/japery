@@ -51,8 +51,8 @@ class MainWindow(QMainWindow):
         inside_middle_vert_layout.addWidget(self.axle)
         axle_label = QLabel('Axle Width')
         inside_left_vert_layout.addWidget(axle_label)
-        axle_dropdown = Size_Menu()
-        inside_right_vert_layout.addWidget(axle_dropdown)
+        self.axle_dropdown = Size_Menu()
+        inside_right_vert_layout.addWidget(self.axle_dropdown)
 
         # Wheel radius
         self.wheel_rad = QLineEdit()
@@ -61,8 +61,8 @@ class MainWindow(QMainWindow):
         inside_middle_vert_layout.addWidget(self.wheel_rad)
         wheel_rad_label = QLabel('Wheel Radius')
         inside_left_vert_layout.addWidget(wheel_rad_label)
-        wheel_rad_dropdown = Size_Menu()
-        inside_right_vert_layout.addWidget(wheel_rad_dropdown)
+        self.wheel_rad_dropdown = Size_Menu()
+        inside_right_vert_layout.addWidget(self.wheel_rad_dropdown)
 
         # Height, axle-to-top
         self.height = QLineEdit()
@@ -71,48 +71,48 @@ class MainWindow(QMainWindow):
         inside_middle_vert_layout.addWidget(self.height)
         height_label = QLabel('Height (Axle-to-top)')
         inside_left_vert_layout.addWidget(height_label)
-        height_dropdown = Size_Menu()
-        inside_right_vert_layout.addWidget(height_dropdown)
+        self.height_dropdown = Size_Menu()
+        inside_right_vert_layout.addWidget(self.height_dropdown)
 
         # Weight of entire robot
-        self.Weight = QLineEdit()
-        self.Weight.setPlaceholderText('Weight (entire robot, assembled)')
-        self.Weight.setValidator(dbl_valid)
-        inside_middle_vert_layout.addWidget(self.Weight)
-        mass_label = QLabel('Weight (entire robot, assembled)')
-        inside_left_vert_layout.addWidget(mass_label)
-        mass_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(mass_dropdown)
+        self.weight = QLineEdit()
+        self.weight.setPlaceholderText('Weight (entire robot, assembled)')
+        self.weight.setValidator(dbl_valid)
+        inside_middle_vert_layout.addWidget(self.weight)
+        weight_label = QLabel('Weight (entire robot, assembled)')
+        inside_left_vert_layout.addWidget(weight_label)
+        self.weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(self.weight_dropdown)
 
         # Wheel Weight
-        self.wheel_mass = QLineEdit()
-        self.wheel_mass.setPlaceholderText('Wheel Weight (each)')
-        self.wheel_mass.setValidator(dbl_valid)
-        inside_middle_vert_layout.addWidget(self.wheel_mass)
-        wheel_mass_label = QLabel('Wheel Weight (each)')
-        inside_left_vert_layout.addWidget(wheel_mass_label)
+        self.wheel_weight = QLineEdit()
+        self.wheel_weight.setPlaceholderText('Wheel Weight (each)')
+        self.wheel_weight.setValidator(dbl_valid)
+        inside_middle_vert_layout.addWidget(self.wheel_weight)
+        wheel_weight_label = QLabel('Wheel Weight (each)')
+        inside_left_vert_layout.addWidget(wheel_weight_label)
         wheel_mass_dropdown = Weight_Menu()
         inside_right_vert_layout.addWidget(wheel_mass_dropdown)
 
         # Load Weight
-        self.load_mass = QLineEdit()
-        self.load_mass.setPlaceholderText('Weight of Load (only)')
-        self.load_mass.setValidator(dbl_valid)
-        inside_middle_vert_layout.addWidget(self.load_mass)
-        load_mass_label = QLabel('Weight of Load (only)')
-        inside_left_vert_layout.addWidget(load_mass_label)
-        load_mass_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(load_mass_dropdown)
+        self.load_weight = QLineEdit()
+        self.load_weight.setPlaceholderText('Weight of Load (only)')
+        self.load_weight.setValidator(dbl_valid)
+        inside_middle_vert_layout.addWidget(self.load_weight)
+        load_weight_label = QLabel('Weight of Load (only)')
+        inside_left_vert_layout.addWidget(load_weight_label)
+        load_weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(load_weight_dropdown)
 
         # Body Weight (no load, no wheels)
-        body_mass_label = QLabel('Body Weight (no load, no wheels)')
-        inside_left_vert_layout.addWidget(body_mass_label)
-        self.body_mass = QLineEdit()
-        self.body_mass.setPlaceholderText('Body Weight (no load, no wheels)')
-        self.body_mass.setValidator(dbl_valid)
-        inside_middle_vert_layout.addWidget(self.body_mass)
-        body_mass_dropdown = Weight_Menu()
-        inside_right_vert_layout.addWidget(body_mass_dropdown)
+        body_weight_label = QLabel('Body Weight (no load, no wheels)')
+        inside_left_vert_layout.addWidget(body_weight_label)
+        self.body_weight = QLineEdit()
+        self.body_weight.setPlaceholderText('Body Weight (no load, no wheels)')
+        self.body_weight.setValidator(dbl_valid)
+        inside_middle_vert_layout.addWidget(self.body_weight)
+        body_weight_dropdown = Weight_Menu()
+        inside_right_vert_layout.addWidget(body_weight_dropdown)
 
         # now add those to the main layout here
         horizontal_layout.addLayout(inside_left_vert_layout) # add the left box contents
@@ -128,7 +128,6 @@ class MainWindow(QMainWindow):
         cancel_button.pressed.connect(self.CancelButtonFunc)
         main_vertical_layout.addWidget(cancel_button)
 
-        # layout.addWidget(QSlider())
         # Initialize all of the above as a single Widget
         widget = QWidget()
 
@@ -144,16 +143,16 @@ class MainWindow(QMainWindow):
         # print("Wheel radius: " + self.wheel_rad.text())
         # print("Height: " + self.height.text())
         # print("Weight of entire robot: " + self.Weight.text())
-        # print("Wheel Weight (each); " + self.wheel_mass.text())
-        # print("Load Weight: " + self.load_mass.text())
-        # print("Body Weight: " + self.body_mass.text())
+        # print("Wheel Weight (each); " + self.wheel_weight.text())
+        # print("Load Weight: " + self.load_weight.text())
+        # print("Body Weight: " + self.body_weight.text())
 
         # DATA QUALITY CHECK CODE GOES HERE. Are all values filled in? Units? 
         
         dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
-            'height': self.height.text(), 'Robot Weight': self.Weight.text(), 
-            'Wheel Weight': self.wheel_mass.text(), 'Load Weight': self.load_mass.text(), 
-            'Body Weight': self.body_mass.text()}
+            'height': self.height.text(), 'Robot Weight': self.weight.text(), 
+            'Wheel Weight': self.wheel_weight.text(), 'Load Weight': self.load_weight.text(), 
+            'Body Weight': self.body_weight.text()}
         file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
         json.dump(dict, file)
         
