@@ -159,6 +159,8 @@ class MainWindow(QMainWindow):
 
     def CancelButtonFunc(self):
         print("You're CANCELED")
+        print("(Also I'm closing the program)")
+        window.close()
 
 
 app = QApplication(sys.argv) #every app must have at least one instance of this
