@@ -140,7 +140,6 @@ class MainWindow(QMainWindow):
     def ConfirmButtonFunc(self):
         print("Saved data to output.json")
         print("Axle width: " + self.axle.text() + " " + self.axle_dropdown.currentText())
-        # print(self.axle_dropdown.currentText())
         print("Wheel radius: " + self.wheel_rad.text() + " " + self.wheel_rad_dropdown.currentText())
         print("Height: " + self.height.text() + " " + self.height_dropdown.currentText())
         print("Weight of entire robot: " + self.weight.text() + " " + self.weight_dropdown.currentText())
@@ -149,14 +148,42 @@ class MainWindow(QMainWindow):
         print("Body Weight: " + self.body_weight.text() + " " + self.body_weight_dropdown.currentText())
 
         # DATA QUALITY CHECK CODE GOES HERE. Are all values filled in? Units? 
+
+        axle = self.convert_length(self.axle, self.axle_dropdown)
+        wheel_rad = self.convert_length(self.wheel_rad, self.wheel_rad_dropdown)
+        height = self.convert_length(self.height, self.height_dropdown)
+        weight = self.convert_mass(self.weight, self.weight_dropdown)
+        wheel_weight = self.convert_mass(self.wheel_weight, self.wheel_weight_dropdown)
+        load_weight = self.convert_mass(self.load_weight, self.load_weight_dropdown)
+        body_weight = self.convert_mass(self.body_weight, self.body_weight_dropdown)
         
-        # dict = {'axle width': self.axle.text(), 'wheel radius': self.wheel_rad.text(), 
-        #     'height': self.height.text(), 'Robot Weight': self.weight.text(), 
-        #     'Wheel Weight': self.wheel_weight.text(), 'Load Weight': self.load_weight.text(), 
-        #     'Body Weight': self.body_weight.text()}
-        # file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
-        # json.dump(dict, file)
+        raw_dict = {'axle width': axle.magnitude, 'wheel radius': wheel_rad.magnitude, 
+            'height': height.magnitude, 'Robot Weight': weight.magnitude, 
+            'Wheel Weight': wheel_weight.magnitude, 'Load Weight': load_weight.magnitude, 
+            'Body Weight': body_weight.magnitude}
+        print(raw_dict)
+        file = open('output.json', 'w+') #creates output.json if it doesn't exist, opens and truncates if it does 
+        json.dump(raw_dict, file)
         
+    def convert_length(self, object, dropdown):
+        if dropdown.currentText() == "inches":
+            converted_value = float(object.text()) * self.ureg.inch
+        if dropdown.currentText() == "centimeters":
+            converted_value = float(object.text()) * self.ureg.cm
+        converted_value.ito_base_units()
+        return converted_value
+
+    def convert_mass(self, object, dropdown):
+        if dropdown.currentText() == "grams":
+            converted_value = float(object.text()) * self.ureg.gram
+        if dropdown.currentText() == "kilograms":
+            converted_value = float(object.text()) * self.ureg.kg        
+        if dropdown.currentText() == "lbs":
+            converted_value = float(object.text()) * self.ureg.pound        
+        if dropdown.currentText() == "ounces":
+            converted_value = float(object.text()) * self.ureg.ounce
+        converted_value.ito_base_units()
+        return converted_value
 
     def CancelButtonFunc(self):
         print("You're CANCELED")
