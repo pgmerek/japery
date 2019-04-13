@@ -1,0 +1,16 @@
+February 8th Meeting with Galois (more of a check-in)
+
+- Next steps
+	1) Model the motors, design PID controllers around this model
+	2) Test for robustness
+		-> How many amps can it deviate?
+	3) Test motors for real-world parameters
+		-> Find torque
+		-> Response
+		-> Current draw
+	4) Look for mathematical models of motors in controls textbooks
+		-> Some books
+			1. Feedback Control of a Dynamic Systems by Gene Franklin
+			2. Modern Control Theory by Babnicki
+			3. Automatic Control Systems by Coo
+	5) RiscV isn't ready, use STM32 Discovery board instead

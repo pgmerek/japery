@@ -1,0 +1,48 @@
+April 13th, 2019 Meeting with Galois 
+
+- Verification next steps
+	* Research Kind2, look at cruise controller example
+	* Write own PID function, in model-based form
+		-> Kind2 can generate rust code from this model
+	* Look into Coco-Sim (?). It's part of Matlab.
+	* Look into Est-Talroo (?)
+
+- Priorities
+	1) Write Control Code
+	2) Verify
+	3) Work in interaction with peripherals
+		- For the time being, drivers may be written in C
+	
+- On peripherals...
+	* Identify some assumptions. I.e., how can I design my controller to be robust to variances in the input frequency
+	* Model sensors, model uncertainty around sensors
+
+- Before working on adaptive controller...
+	* Focus on eliminating steady state error
+	* Create two switching controllers
+		1) PID with a small integral term, used away from setpoint
+		2) PID with an integrator gain, used near setpoint
+		
+	*** Go to Closed Loop design instead, instead of heuristic method ***
+	
+- On LQR-controllers...
+	* Matt asks "Can it be discretized?"
+
+- Priorities, again
+	1) Verification, even if on a PID controller
+		* Find a model checker
+		* Design a controller
+		* Research design tools
+	2) Look into new, nonlinear controllers, repeat verification
+		* Isolate "Software Under Test", as outlined in the original proposal from Galois
+		* This is useful for verification. We need to abstract out controllers within our model.
+		* We need to verify that out range of inputs and outputs are within some kind of tolerance
+		
+	*** Review, cleanup, and push code to repo ***
+	
+- Discretization
+	* Discretize tilt angle
+		-> Every one degree, every 0.1 degree, etc
+	* Use this to find local stability. For instance, around the set point, find a range of tilt angles where the response may be linear
+	* Figure out why the steady state oscillations exist and find a way to make the system more stable around setpoint
+	

@@ -1,0 +1,41 @@
+January 11th, 2019 Meeting with Galois
+
+- Initial questions about the project
+	* How do you build a two-wheeled robot that can balance itself?
+	* How can I program this in Rust? How can I verify the code with Kind2?
+	* Linear or nonlinear?
+	* RiscV is robust, but is in its infancy
+		-> Rust uses LVM for compilation
+	
+- Focuses of the project
+	* Solid programming
+	* Model checking
+	* Repeatability
+	* Solid electrical engineering
+	
+- On RiscV...
+	* Baremetal will take more time
+	* Might adopt RiscV later
+
+- Hardware
+	* Build it and demostrate
+	* The HW design is the deliverable
+		1) Controller board
+		2) Arduino Uno instead of RiscV
+	* Be mindful of switching boards: Is the I/O abstract or do some changes need to be made?
+	* When choosing HW design, heavily document this. This is one of the deliverables.
+
+- Verification tools
+	* Octave and Kind2 aren't required but they are recommended
+	* All software should be free
+	* Make repo public and open-source
+
+- Drivers
+	* For verification, it may be better to write our own simple, verifiable bit-banging driver instead of using someone else's driver
+	
+- Next steps
+	1) Start looking at HW design at a high-level as soon as possible
+	2) Send biweekly reports
+	3) Stretch goals are trajectory and turning
+	4) Discreetizing a non-linear controller makes it verifiable
+	
