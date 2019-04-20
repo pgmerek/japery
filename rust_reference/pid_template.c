@@ -1,5 +1,5 @@
 /*
-This is taken directly from Brett Beauregard's Improving The Beginner's PID tutorial, and uses his suggestions 
+This is taken directly from Brett Beauregard's "Improving The Beginner's PID" tutorial, and uses his suggestions 
 on how to smooth and improve the algorithm. It does not implement interrupts or manual PID override.
 
 http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-introduction/
