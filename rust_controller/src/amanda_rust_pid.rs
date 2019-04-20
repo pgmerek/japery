@@ -2,7 +2,24 @@
 The following is an in-progress adaptation of the Beginner's Guide to PID 
 Controllers algorithm from Brett Beauregard, in a straight-line conversion to Rust.
 As of 4-20-19 it is not complete.
+
+references: 
+
+https://github.com/japaric/zen/ -- embedded TWIP with PID on stm32 board
+https://github.com/johsnick/rust_pid/blob/master/src/lib.rs - example rust PID
+https://github.com/adeschamps/pid-controller/blob/master/src/lib.rs - example rust PID
 */
+
+#![no_std]
+#![no_main]
+
+/* crates go here */
+extern crate panic_halt; 
+extern crate chrono; // for the millisecond function
+/**/
+
+use cortex_m::asm;
+use cortex_m_rt::entry;
 
 /*working variables*/
 
@@ -19,7 +36,7 @@ int controllerDirection = DIRECT;
 
 fn Compute()
 {
-   let mut now: u32 = millis();
+   // let mut now: u32 = millis(); Time is tracked externally
    let mut timeChange: i32 = (now - lastTime);
    if(timeChange>=SampleTime)
    {
@@ -32,7 +49,7 @@ fn Compute()
       	let mut dInput: i64 = (Input - lastInput);
  
       /*Compute PID Output*/
-		Output = kp * error + ITerm - kd * dInput;
+		Output = kp * error + ITerm - (kd * dInput);
 		if(Output > outMax) Output = outMax;
       	else if(Output < outMin) Output = outMin;
 
@@ -48,7 +65,7 @@ fn SetTunings(Kp: i64, Ki: i64, Kd: i64)
    	kp = Kp;
    	ki = Ki * SampleTimeInSec;
    	kd = Kd / SampleTimeInSec;
-
+    //The above code is for going forward, the below is for backward
    	if(controllerDirection == REVERSE)
    	{
       	kp = (0 - kp);
@@ -57,7 +74,8 @@ fn SetTunings(Kp: i64, Ki: i64, Kd: i64)
    	}
 }
  
-fn SetSampleTime(NewSampleTime: i32)
+fn SetSampleTime(NewSampleTime: i32) 
+// this is called externally, rather than tracking time by itself
 {
    if (NewSampleTime > 0)
    {
@@ -83,6 +101,7 @@ fn SetOutputLimits(Min: i64, Max: i64)
    else if(ITerm< outMin) ITerm= outMin;
 }
 
+//Going backwards or forwards
 fn SetControllerDirection(int Direction)
 {
    controllerDirection = Direction;
