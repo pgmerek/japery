@@ -54,12 +54,12 @@ for i = 1:motor_num
         speed_fit(:,i) = no_load_speed_fit(i) + speed_torque_slope_fit(i) * torque_fit;
     end
 end
-plot(torque_fit,speed_fit(:,1),'r','LineWidth',1.5)
+plot(torque_fit,speed_fit(:,1),'r','LineWidth',1.2)
 hold on
-plot(torque_fit,speed_fit(:,2),'b','LineWidth',1.5)
-plot(torque_fit,speed_fit(:,3),'g','LineWidth',1.5)
-plot(torque_fit,speed_fit(:,4),'c','LineWidth',1.5)
-plot([0 stall_torque],[no_load_speed 0],'k--','LineWidth',1.5)
+plot(torque_fit,speed_fit(:,2),'b','LineWidth',1.2)
+plot(torque_fit,speed_fit(:,3),'g','LineWidth',1.2)
+plot(torque_fit,speed_fit(:,4),'c','LineWidth',1.2)
+plot([0 stall_torque],[no_load_speed 0],'k--','LineWidth',1.2)
 xlim([0 inf])
 ylim([0 inf])
 xlabel('torque (N.mm)','Interpreter','latex')
@@ -86,12 +86,12 @@ for i = 1:motor_num
         current_fit(:,i) = no_load_current_fit(i) + current_torque_slope_fit(i) * torque_fit;
     end
 end
-plot(torque_fit,current_fit(:,1),'r','LineWidth',1.5)
+plot(torque_fit,current_fit(:,1),'r','LineWidth',1.2)
 hold on
-plot(torque_fit,current_fit(:,2),'b','LineWidth',1.5)
-plot(torque_fit,current_fit(:,3),'g','LineWidth',1.5)
-plot(torque_fit,current_fit(:,4),'c','LineWidth',1.5)
-plot([0 stall_torque],[no_load_current stall_current],'k--','LineWidth',1.5)
+plot(torque_fit,current_fit(:,2),'b','LineWidth',1.2)
+plot(torque_fit,current_fit(:,3),'g','LineWidth',1.2)
+plot(torque_fit,current_fit(:,4),'c','LineWidth',1.2)
+plot([0 stall_torque],[no_load_current stall_current],'k--','LineWidth',1.2)
 xlim([0 inf])
 ylim([0 inf])
 xlabel('torque (N.mm)','Interpreter','latex')
@@ -107,7 +107,6 @@ fprintf('m2: %.4f V.s\n',Km(2));
 fprintf('m3: %.4f V.s\n',Km(3));
 fprintf('m4: %.4f V.s\n',Km(4));
 fprintf('avg: %.4f V.s  (%.2f%% error)\n', Km_avg, abs(Km_avg-.1059)/.1059 * 100);
-
 
 
 
