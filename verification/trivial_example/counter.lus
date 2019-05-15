@@ -1,13 +1,22 @@
--- Counter example
+contract counterSpecs(r : bool) returns (c : int);
+let
+    guarantee c >= 0;
 
-node COUNTER (init, incr: int; X, reset: bool) returns (N: int);
-var PN: int;
+    mode reset (
+        require r;
+        ensure c = 0;
+    );
+
+    mode increasing (
+        require not r;
+        ensure true -> c > pre c;
+    );
+tel
+
+node counter(reset : bool) returns (count : int);
+(*@contract import counterSpecs(reset) returns (count); *)
 
 let
-    PN = init -> pre N;
-    N =
-        if reset then init
-        else if X then PN + incr
-        else PN;
+    count = 0 -> if reset then 0 else (pre count) + 1;
 tel
 
