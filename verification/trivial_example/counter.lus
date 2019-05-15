@@ -1,12 +1,19 @@
+-- Simple counter
+-- Increases by one as long as reset if not asserted
+-- Once reset is asserted, the count is set to zero
+
 contract counterSpecs(r : bool) returns (c : int);
 let
+    -- The count should never be negative
     guarantee c >= 0;
 
+    -- If r is asserted, check that count is zero
     mode reset (
         require r;
         ensure c = 0;
     );
 
+    -- If r is not asserted, check that count is increasing 
     mode increasing (
         require not r;
         ensure true -> c > pre c;
